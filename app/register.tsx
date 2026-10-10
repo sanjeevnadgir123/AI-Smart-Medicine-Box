@@ -5,9 +5,9 @@ import * as Linking from 'expo-linking';
 import * as IntentLauncher from 'expo-intent-launcher';
 
 import { supabase } from '../lib/supabase';
-import { AppTextInput } from '../components/AppTextInput';
-import { AppButton } from '../components/AppButton';
-import { Colors, Spacing, Typography } from '../constants/theme';
+import { AppTextInput } from '../src/components/common/AppTextInput';
+import { AppButton } from '../src/components/common/AppButton';
+import { Colors, Spacing, Typography } from '../src/constants/theme';
 
 export default function RegisterScreen() {
   const [name, setName] = useState('');

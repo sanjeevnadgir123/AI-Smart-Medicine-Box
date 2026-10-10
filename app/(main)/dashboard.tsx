@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, AppState, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
-import { Colors, Spacing, Typography } from '../../constants/theme';
-import { DeviceStatusCard } from '../../components/DeviceStatusCard';
-import { MedicineCard } from '../../components/MedicineCard';
-import { QuickActionCard } from '../../components/QuickActionCard';
-import { Medicine } from '../../models/medicine';
+import { Colors, Spacing, Typography } from '../../src/constants/theme';
+import { DeviceStatusCard } from '../../src/components/dashboard/DeviceStatusCard';
+import { MedicineCard } from '../../src/components/medicines/MedicineCard';
+import { QuickActionCard } from '../../src/components/dashboard/QuickActionCard';
+import { Medicine } from '../../src/models/medicine';
 import { Ionicons } from '@expo/vector-icons';
-import { getTodaysMedicines } from '../../services/medicineService';
-import { getTodayDoses, generateTodaysDoses } from '../../services/doseService';
-import { DoseLog } from '../../models/dose';
-import { requestNotificationPermissions, syncNotifications } from '../../services/notificationService';
+import { getTodaysMedicines } from '../../src/services/medicineService';
+import { getTodayDoses, generateTodaysDoses } from '../../src/services/doseService';
+import { DoseLog } from '../../src/models/dose';
+import { requestNotificationPermissions, syncNotifications } from '../../src/services/notificationService';
 
 function getGreeting(hour: number): string {
   if (hour >= 5 && hour < 12) {

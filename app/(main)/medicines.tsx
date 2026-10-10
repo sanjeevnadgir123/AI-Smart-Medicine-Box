@@ -2,10 +2,10 @@ import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator, Alert, SafeAreaView, TouchableOpacity } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { Colors, Typography, Spacing, BorderRadius } from '../../constants/theme';
-import { MedicineCard } from '../../components/MedicineCard';
-import { Medicine } from '../../models/medicine';
-import { getMedicines, deleteMedicine } from '../../services/medicineService';
+import { Colors, Typography, Spacing, BorderRadius } from '../../src/constants/theme';
+import { MedicineCard } from '../../src/components/medicines/MedicineCard';
+import { Medicine } from '../../src/models/medicine';
+import { getMedicines, deleteMedicine } from '../../src/services/medicineService';
 import { supabase } from '../../lib/supabase';
 
 export default function MedicinesScreen() {

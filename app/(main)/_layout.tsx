@@ -1,5 +1,5 @@
 import { Stack, router } from 'expo-router';
-import { Colors } from '../../constants/theme';
+import { Colors } from '../../src/constants/theme';
 import { useEffect } from 'react';
 import * as Notifications from 'expo-notifications';
 

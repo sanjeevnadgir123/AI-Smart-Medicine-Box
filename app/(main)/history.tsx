@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors, Typography, Spacing } from '../../constants/theme';
+import { Colors, Typography, Spacing } from '../../src/constants/theme';
 
 export default function HistoryScreen() {
   return (

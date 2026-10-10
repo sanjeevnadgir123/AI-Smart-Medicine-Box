@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Saf
 import { router } from 'expo-router';
 
 import { supabase } from '../lib/supabase';
-import { AppTextInput } from '../components/AppTextInput';
-import { AppButton } from '../components/AppButton';
-import { Colors, Spacing, Typography } from '../constants/theme';
+import { AppTextInput } from '../src/components/common/AppTextInput';
+import { AppButton } from '../src/components/common/AppButton';
+import { Colors, Spacing, Typography } from '../src/constants/theme';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');

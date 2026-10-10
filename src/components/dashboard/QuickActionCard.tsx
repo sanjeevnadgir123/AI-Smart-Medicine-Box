@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Colors, Spacing, BorderRadius, Typography } from '../constants/theme';
+import { Colors, Spacing, BorderRadius, Typography } from '../../constants/theme';
 
 interface QuickActionCardProps {
   title: string;

@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase';
+import { supabase } from '../../lib/supabase';
 import { DoseLog, DoseStatus } from '../models/dose';
 import { getTodaysMedicines } from './medicineService';
 import { cancelDoseNotification } from './notificationService';

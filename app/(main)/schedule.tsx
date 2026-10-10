@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, RefreshControl, SafeAreaView, AppState } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
-import { Colors, Typography, Spacing } from '../../constants/theme';
-import { DoseLog } from '../../models/dose';
-import { generateTodaysDoses, getTodayDoses, markDoseTaken } from '../../services/doseService';
+import { Colors, Typography, Spacing } from '../../src/constants/theme';
+import { DoseLog } from '../../src/models/dose';
+import { generateTodaysDoses, getTodayDoses, markDoseTaken } from '../../src/services/doseService';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function ScheduleScreen() {

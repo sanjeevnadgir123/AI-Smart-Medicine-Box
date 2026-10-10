@@ -4,8 +4,8 @@ import { router, useGlobalSearchParams } from 'expo-router';
 import * as Linking from 'expo-linking';
 import { globalLatestAuthUrl } from '../_layout';
 import { supabase } from '../../lib/supabase';
-import { AppButton } from '../../components/AppButton';
-import { Colors, Spacing, Typography } from '../../constants/theme';
+import { AppButton } from '../../src/components/common/AppButton';
+import { Colors, Spacing, Typography } from '../../src/constants/theme';
 
 const safeLogUrl = (urlStr: string | null, source: string) => {
   if (!__DEV__) return;

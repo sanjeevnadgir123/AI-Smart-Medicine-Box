@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, Linking, Platform } from 'react-native';
-import { Colors, Typography, Spacing } from '../../constants/theme';
-import { AppButton } from '../../components/AppButton';
+import { Colors, Typography, Spacing } from '../../src/constants/theme';
+import { AppButton } from '../../src/components/common/AppButton';
 import { supabase } from '../../lib/supabase';
 import { router } from 'expo-router';
-import { requestNotificationPermissions, getNotificationPermissionStatus } from '../../services/notificationService';
+import { requestNotificationPermissions, getNotificationPermissionStatus } from '../../src/services/notificationService';
 
 export default function SettingsScreen() {
   const [notificationStatus, setNotificationStatus] = React.useState<string>('checking...');

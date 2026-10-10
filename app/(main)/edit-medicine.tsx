@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Platform, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Colors, Typography, Spacing, BorderRadius } from '../../constants/theme';
-import { AppTextInput } from '../../components/AppTextInput';
-import { AppButton } from '../../components/AppButton';
-import { getMedicineById, updateMedicine } from '../../services/medicineService';
-import { MedicineRepeat, MedicineStatus } from '../../models/medicine';
-import { deletePendingDosesForMedicine, generateTodaysDoses, getTodayDoses } from '../../services/doseService';
-import { syncNotifications } from '../../services/notificationService';
+import { Colors, Typography, Spacing, BorderRadius } from '../../src/constants/theme';
+import { AppTextInput } from '../../src/components/common/AppTextInput';
+import { AppButton } from '../../src/components/common/AppButton';
+import { getMedicineById, updateMedicine } from '../../src/services/medicineService';
+import { MedicineRepeat, MedicineStatus } from '../../src/models/medicine';
+import { deletePendingDosesForMedicine, generateTodaysDoses, getTodayDoses } from '../../src/services/doseService';
+import { syncNotifications } from '../../src/services/notificationService';
 
 export default function EditMedicineScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Platform, TouchableOpacity, Alert } from 'react-native';
 import { router } from 'expo-router';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Colors, Typography, Spacing, BorderRadius } from '../../constants/theme';
-import { AppTextInput } from '../../components/AppTextInput';
-import { AppButton } from '../../components/AppButton';
-import { addMedicine } from '../../services/medicineService';
-import { MedicineRepeat } from '../../models/medicine';
-import { generateTodaysDoses, getTodayDoses } from '../../services/doseService';
-import { syncNotifications } from '../../services/notificationService';
+import { Colors, Typography, Spacing, BorderRadius } from '../../src/constants/theme';
+import { AppTextInput } from '../../src/components/common/AppTextInput';
+import { AppButton } from '../../src/components/common/AppButton';
+import { addMedicine } from '../../src/services/medicineService';
+import { MedicineRepeat } from '../../src/models/medicine';
+import { generateTodaysDoses, getTodayDoses } from '../../src/services/doseService';
+import { syncNotifications } from '../../src/services/notificationService';
 
 export default function AddMedicineScreen() {
   const [name, setName] = useState('');

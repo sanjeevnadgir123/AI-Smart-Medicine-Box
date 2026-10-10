@@ -1,10 +1,10 @@
-# 💊 AI Smart Medicine Box
+# 💊 AI Smart Medicine Box v2
 
 An intelligent IoT-enabled healthcare companion and smart medication dispenser mobile app built with **Expo (React Native)** and **Supabase**. The AI Smart Medicine Box helps patients and caregivers manage medication schedules, track dosage adherence, and link digital reminders with physical medicine compartments.
 
 ---
 
-## 🌟 Key Features
+## 🌟 Implemented Features
 
 - 🔐 **Authentication & User Profiles**
   - Secure email/password registration and login powered by Supabase Auth.
@@ -18,9 +18,10 @@ An intelligent IoT-enabled healthcare companion and smart medication dispenser m
   - Quick actions to mark doses as taken, view schedules, and add prescriptions.
 - ⏰ **Schedule & Adherence Tracking**
   - Timeline view of morning, afternoon, evening, and night doses.
+  - Local push notifications scheduled via `expo-notifications`.
   - Logging dosage adherence history and alerts.
 - 🛡️ **Robust Security**
-  - Full PostgreSQL Row Level Security (RLS) policies guaranteeing user data privacy.
+  - Full PostgreSQL Row Level Security (RLS) policies guaranteeing tenant user data privacy.
 
 ---
 
@@ -30,39 +31,55 @@ An intelligent IoT-enabled healthcare companion and smart medication dispenser m
 - **Routing**: [Expo Router](https://docs.expo.dev/router/introduction/) (File-based navigation)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Backend / Database**: [Supabase](https://supabase.com/) (PostgreSQL & Supabase Auth)
-- **Icons & UI**: `@expo/vector-icons`, `expo-symbols`, `react-native-reanimated`
+- **Notifications**: `expo-notifications`
+- **State & Storage**: `@react-native-async-storage/async-storage`
+- **UI & Animation**: `@expo/vector-icons`, `react-native-reanimated`
+- **Build & Deployment**: EAS Build (Android preview / production)
 
 ---
 
-## 📂 Project Architecture
+## 📂 Project Structure
 
 ```text
-├── app/                      # Expo Router screens
-│   ├── (main)/               # Authenticated application flow
-│   │   ├── _layout.tsx       # Bottom tab / stack navigation
-│   │   ├── dashboard.tsx     # Home overview & upcoming doses
-│   │   ├── medicines.tsx     # Medication list & compartment management
-│   │   ├── add-medicine.tsx  # Add new prescription screen
-│   │   ├── edit-medicine.tsx # Modify prescription screen
-│   │   ├── schedule.tsx      # Daily timeline & schedule
-│   │   ├── alerts.tsx        # Notification history
-│   │   ├── history.tsx       # Adherence logs
-│   │   ├── caregiver.tsx     # Remote monitoring & caregiver link
-│   │   └── settings.tsx      # User settings & preferences
-│   ├── auth/                 # Auth deep link callback handling
-│   ├── login.tsx             # Login screen
-│   ├── register.tsx          # Account registration screen
-│   └── _layout.tsx           # Root navigation stack
-├── components/               # Reusable UI cards, inputs, and buttons
-├── constants/                # App theme colors and typography
-├── lib/                      # Supabase client initialization
-├── models/                   # TypeScript interfaces and data models
-├── services/                 # API service layer
-├── supabase/                 # Database migrations and schema SQL files
-│   ├── schema.sql            # Base profiles schema
-│   ├── medicine_schema.sql   # Medicines table and RLS policies
-│   └── dose_schema.sql       # Dose log tracking schema
-└── assets/                   # App icons, splash screens, and images
+AI-Smart-Medicine-Box-v2/
+├── app/                         # Expo Router screens and routes
+│   ├── _layout.tsx              # Root stack layout & auth deep-link handler
+│   ├── index.tsx                # Entry route & auth check
+│   ├── login.tsx                # User login screen
+│   ├── register.tsx             # User registration screen
+│   ├── auth/
+│   │   └── callback.tsx         # OAuth callback handler
+│   └── (main)/                  # Authenticated application flows
+│       ├── _layout.tsx          # Main layout & notification response listener
+│       ├── dashboard.tsx        # Home dashboard
+│       ├── medicines.tsx        # Medicine management list
+│       ├── add-medicine.tsx     # Add prescription screen
+│       ├── edit-medicine.tsx    # Edit prescription screen
+│       ├── schedule.tsx         # Daily schedule timeline
+│       ├── settings.tsx         # App settings & notifications
+│       ├── alerts.tsx           # Alerts screen
+│       ├── history.tsx          # Adherence logs screen
+│       └── caregiver.tsx        # Caregiver linkage screen
+│
+├── src/                         # Core application source
+│   ├── components/              # Modular UI components
+│   │   ├── common/              # AppButton, AppTextInput
+│   │   ├── dashboard/           # DeviceStatusCard, QuickActionCard
+│   │   └── medicines/           # MedicineCard
+│   ├── services/                # medicineService, doseService, notificationService
+│   ├── models/                  # medicine.ts, dose.ts interfaces
+│   ├── constants/               # theme.ts (Colors, Spacing, Typography)
+│   └── hooks/                   # use-color-scheme, use-theme-color
+│
+├── lib/                         # External clients (Supabase client)
+├── assets/                      # App icons, splash screens, and artwork
+├── supabase/                    # SQL migrations (schema, medicines, doses)
+├── docs/                        # Architecture, project structure, setup guides
+├── scripts/                     # Project reset scripts
+├── .env.example                 # Environment variables template
+├── app.json                     # Expo configuration
+├── eas.json                     # EAS Build configuration
+└── tsconfig.json                # TypeScript configuration
 ```
 
 ---
@@ -90,11 +107,17 @@ npm install
 
 ### 3. Environment Variables Configuration
 
-Create a `.env` file in the root directory:
+Copy `.env.example` to `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Set your credentials:
 
 ```env
-EXPO_PUBLIC_SUPABASE_URL=https://your-supabase-project-id.supabase.co
-EXPO_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+EXPO_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-or-anon-key
 ```
 
 ### 4. Database Setup (Supabase)
@@ -118,15 +141,40 @@ Scan the QR code in the terminal using the **Expo Go** app (Android) or **Camera
 
 ---
 
-## 🔮 Hardware & IoT Integration (ESP32 Roadmap)
+## 🧪 Testing & Verification
 
-The AI Smart Medicine Box is engineered to communicate with a physical smart dispenser:
-- **Microcontroller**: ESP32 / Raspberry Pi Pico W
-- **Communication**: MQTT / WebSockets / Bluetooth Low Energy (BLE)
-- **Features in progress**:
-  - Auto-dispensing triggered by scheduled alarms
-  - Compartment LED indicators & tamper sensors
-  - Pill recognition via AI camera feed
+Run the TypeScript type checker:
+```bash
+npx tsc --noEmit
+```
+
+Run ESLint:
+```bash
+npm run lint
+```
+
+---
+
+## 🔮 Hardware & IoT Integration (Planned Enhancement)
+
+*Note: Physical hardware integration is a planned enhancement and is currently in active specification.*
+
+The roadmap includes:
+- **Microcontroller**: ESP32 / Raspberry Pi Pico W integration
+- **Communication Protocol**: MQTT / WebSockets / Bluetooth Low Energy (BLE)
+- **Planned Features**:
+  - Hardware-triggered compartment unlocks and LEDs based on app schedule
+  - Tamper/open physical sensors reporting adherence to Supabase
+  - Vision AI for pill shape and color recognition via camera
+
+---
+
+## 📄 Documentation
+
+Detailed technical documentation is available in the [`docs/`](./docs) directory:
+- [Architecture Guide](docs/architecture.md)
+- [Project Structure](docs/project-structure.md)
+- [Setup & Build Guide](docs/setup.md)
 
 ---
 
