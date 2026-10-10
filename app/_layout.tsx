@@ -1,24 +1,39 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import * as Linking from 'expo-linking';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+export let globalLatestAuthUrl: string | null = null;
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  useEffect(() => {
+    // Catch deep links at the absolute root before Router consumes them
+    const handleUrl = (url: string | null) => {
+      if (url && url.includes('auth/callback')) {
+        globalLatestAuthUrl = url;
+        if (__DEV__) console.log('[RootLayout] Caught Auth URL:', url);
+      }
+    };
+    
+    Linking.getInitialURL().then(handleUrl);
+    const subscription = Linking.addEventListener('url', (e) => handleUrl(e.url));
+    
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+    <>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="login" />
+        <Stack.Screen name="register" />
+        <Stack.Screen name="auth/callback" />
+        <Stack.Screen name="(main)" />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+      <StatusBar style="dark" />
+    </>
   );
 }

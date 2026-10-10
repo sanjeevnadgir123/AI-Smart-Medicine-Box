@@ -1,0 +1,91 @@
+{
+  "projectName": "AI-Smart-Medicine-Box-v2",
+  "version": "1.0.0",
+  "techStack": {
+    "framework": "React Native (Expo)",
+    "routing": "expo-router",
+    "backend": "Supabase",
+    "auth": "Supabase Auth"
+  },
+  "status": "In Development (Phase 2B)",
+  "completedFeatures": {
+    "authentication": {
+      "status": "Completed",
+      "features": [
+        "User Registration",
+        "User Login",
+        "OAuth/Deep Linking Callback"
+      ],
+      "files": [
+        "app/register.tsx",
+        "app/login.tsx",
+        "app/auth/callback.tsx",
+        "app/index.tsx"
+      ]
+    },
+    "databaseSchema": {
+      "status": "Completed",
+      "tables": [
+        {
+          "name": "profiles",
+          "description": "User profile data tied to auth",
+          "fields": ["id", "name", "email", "created_at"]
+        },
+        {
+          "name": "medicines",
+          "description": "Medicine schedule and compartment mapping",
+          "fields": ["id", "user_id", "name", "dose", "time", "compartment", "repeat", "status", "created_at", "updated_at"]
+        }
+      ],
+      "security": "Row Level Security (RLS) enabled on all tables"
+    },
+    "coreAppScreens": {
+      "status": "Completed",
+      "screens": [
+        "Dashboard (app/(main)/dashboard.tsx)",
+        "Medicines List (app/(main)/medicines.tsx)",
+        "Add Medicine (app/(main)/add-medicine.tsx)",
+        "Edit Medicine (app/(main)/edit-medicine.tsx)",
+        "Settings (app/(main)/settings.tsx)"
+      ]
+    }
+  },
+  "requiredNextSteps": {
+    "hardwareIntegration": {
+      "priority": "High",
+      "description": "Connect the app to the physical medicine box.",
+      "tasks": [
+        "Implement MQTT, WebSockets, or Bluetooth (BLE) protocol",
+        "Sync schedule to ESP32/Raspberry Pi hardware",
+        "Trigger compartment LEDs/Locks"
+      ]
+    },
+    "notifications": {
+      "priority": "High",
+      "description": "Alert the user when it is time to take medicine.",
+      "tasks": [
+        "Integrate expo-notifications",
+        "Schedule local push notifications based on medicine times"
+      ]
+    },
+    "aiFeatures": {
+      "priority": "Medium",
+      "description": "Implement AI features corresponding to the project's title.",
+      "tasks": [
+        "Pill recognition using camera & AI Vision APIs",
+        "Medicine interaction checker",
+        "Smart scheduling recommendations"
+      ]
+    },
+    "pendingScreens": {
+      "priority": "Medium",
+      "description": "Build out screens that are currently stubbed.",
+      "screensToBuild": [
+        "app/(main)/alerts.tsx (Notification history)",
+        "app/(main)/history.tsx (Adherence logs)",
+        "app/(main)/schedule.tsx (Timeline view)",
+        "app/(main)/caregiver.tsx (Link accounts for remote monitoring)"
+      ]
+    }
+  }
+}
